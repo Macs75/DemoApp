@@ -33,6 +33,11 @@ import static com.sixdegrees.demoapp.util.LogUtils.makeLogTag;
 public class PrefUtils {
     private static final String TAG = makeLogTag("PrefUtils");
 
+    /*
+     * After verification of the phone number we store the information with this key
+     */
+    private static final String PREF_VERIFIED_PHONE_NUMBER = "pref_verified_phone_number";
+
     /**
      * Boolean preference that when checked, indicates that the user would like to see times
      * in their local timezone throughout the app.
@@ -113,6 +118,16 @@ public class PrefUtils {
         TimeZone defaultTz = TimeZone.getDefault();
         return (isUsingLocalTime(context) && defaultTz != null)
                 ? defaultTz : Config.CONFERENCE_TIMEZONE;
+    }
+
+    public static String isPhoneVerified(Context context) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        return sp.getString(PREF_VERIFIED_PHONE_NUMBER, "");
+    }
+
+    public static void setPhoneVerified(final Context context, final String verifiedPhone) {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        sp.edit().putString(PREF_VERIFIED_PHONE_NUMBER, verifiedPhone).commit();
     }
 
     public static boolean isUsingLocalTime(Context context) {

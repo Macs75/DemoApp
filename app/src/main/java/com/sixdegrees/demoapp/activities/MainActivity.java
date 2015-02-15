@@ -27,9 +27,16 @@ import android.widget.TextView;
 import com.android.contacts.common.util.ViewUtil;
 import com.sixdegrees.demoapp.R;
 import com.sixdegrees.demoapp.util.PrefUtils;
+import com.thrivecom.ringcaptcha.RingcaptchaApplication;
+import com.thrivecom.ringcaptcha.RingcaptchaApplicationHandler;
+import com.thrivecom.ringcaptcha.RingcaptchaVerification;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    private static final String API_KEY = "lufo4ofa3umy6o2e9ojo";
+    private static final String API_SECRET = "4icu2e5o7ojo2ibepi4y";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,26 @@ public class MainActivity extends ActionBarActivity {
         if (!PrefUtils.isTosAccepted(this)) {
             Intent intent = new Intent(this, WelcomeActivity.class);
             startActivity(intent);
+            finish();
+        }
+
+        if (PrefUtils.isPhoneVerified(this).equals("")){
+            RingcaptchaApplication.verifyPhoneNumber(getApplicationContext(), API_KEY, API_SECRET, new RingcaptchaApplicationHandler() {
+                private static final String TAG = "Ringcaptcha verification";
+                @Override
+                public void onSuccess(RingcaptchaVerification rcObj) {
+                    Log.i(TAG, "success");
+                    String pn = rcObj.getPhoneNumber();
+                    PrefUtils.setPhoneVerified(getParent(), pn);
+
+                }
+
+                @Override
+                public void onCancel() {
+                    Log.i(TAG, "cancel");
+                    finish();
+                }
+            });
             finish();
         }
 

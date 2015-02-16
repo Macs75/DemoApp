@@ -25,10 +25,11 @@
     android:layout_alignParentRight="true"
     android:layout_alignParentBottom="true">
 
-    <ImageButton
+    <ImageButton style="@style/ButtonTheme.Base"
         android:id="@+id/floating_action_button"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:elevation="10dp"
         android:background="@drawable/floating_action_button"
         android:tint="@color/floating_action_button_icon_color"
         android:contentDescription="@string/action_menu_add_new_contact_button"

@@ -21,6 +21,8 @@
     <style name="FrameworkRoot.Theme" parent="Theme.AppCompat.Light" />
     <style name="FrameworkRoot.Widget" parent="Theme.AppCompat" />
 
+    <style name="ButtonTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar"/>
+
     <!-- Immediate parent theme to specify base values for custom attributes -->
     <style name="Theme" parent="FrameworkRoot.Theme">
         <!-- Only needed for pre-L -->

@@ -161,7 +161,7 @@ public class MainActivity extends ActionBarActivity {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
             final View floatingActionButtonContainer = rootView.findViewById(R.id.floating_action_button_container);
-            ViewUtil.setupFloatingActionButton(floatingActionButtonContainer, getResources());
+            //ViewUtil.setupFloatingActionButton(floatingActionButtonContainer, getResources());
             btnContacts = (ImageButton) rootView.findViewById(R.id.floating_action_button);
             txtContacts1 = (TextView) rootView.findViewById(R.id.txt_contacts_name);
             txtContacts2 = (TextView) rootView.findViewById(R.id.txt_contacts_number);

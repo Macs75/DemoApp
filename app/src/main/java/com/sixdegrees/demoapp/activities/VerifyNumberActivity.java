@@ -30,8 +30,8 @@ public class VerifyNumberActivity extends Activity {
     private EditText phoneNumbTv = null;
     private CountDownTimer countDownTimer;
     private RelativeLayout timerLayout;
-    private static String APP_ID="8468ffa2bf7e4604984392d";
-    private static String ACCESS_TOKEN="e8a124d73ce441b0bec0bce11a083b3086ef0122";
+    private static String APP_ID="";
+    private static String ACCESS_TOKEN="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

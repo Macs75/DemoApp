@@ -17,11 +17,15 @@
 <resources>
 
     <style name="Theme" parent="FrameworkRoot.Theme" /> <!-- doesn't contain the pre-L code from the values/styles.xml -->
+    <style name="ButtonTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar"/>
 
     <style name="Theme.IOSched" parent="Theme.IOSched.Base">
-        <item name="popupItemBackground">@drawable/popup_item_background</item>
+        <item name="popupItemBackground">?android:selectableItemBackground</item>
+        <item name="photoItemForeground">?android:selectableItemBackground</item>
+        <item name="photoItemForegroundBorderless">?android:selectableItemBackground</item>
+        <!--item name="popupItemBackground">@drawable/popup_item_background</item>
         <item name="photoItemForeground">@drawable/photo_item_foreground</item>
-        <item name="photoItemForegroundBorderless">@drawable/photo_item_foreground_borderless</item>
+        <item name="photoItemForegroundBorderless">@drawable/photo_item_foreground_borderless</item -->
 
         <item name="android:navigationBarColor">#000</item>
         <item name="android:statusBarColor">?colorPrimaryDark</item>

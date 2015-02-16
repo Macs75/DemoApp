@@ -57,11 +57,13 @@ public class MainActivity extends ActionBarActivity {
         if (!PrefUtils.isTosAccepted(this)) {
             Intent intent = new Intent(this, WelcomeActivity.class);
             startActivity(intent);
+            finish();
         }
 
         if (PrefUtils.isPhoneVerified(this).equals("")){
-            Intent intent = new Intent(this, VerifyNumberActivity.class);
-            startActivity(intent);
+             Intent intent = new Intent(this, VerifyNumberActivity.class);
+             startActivity(intent);
+             finish();
              /*RingcaptchaApplication.verifyPhoneNumber(getApplicationContext(), API_KEY, API_SECRET, new RingcaptchaApplicationHandler() {
                 private static final String TAG = "Ringcaptcha verification";
                 @Override
@@ -161,7 +163,7 @@ public class MainActivity extends ActionBarActivity {
             View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
             final View floatingActionButtonContainer = rootView.findViewById(R.id.floating_action_button_container);
-            ViewUtil.setupFloatingActionButton(floatingActionButtonContainer, getResources());
+            //ViewUtil.setupFloatingActionButton(floatingActionButtonContainer, getResources());
             btnContacts = (ImageButton) rootView.findViewById(R.id.floating_action_button);
             txtContacts1 = (TextView) rootView.findViewById(R.id.txt_contacts_name);
             txtContacts2 = (TextView) rootView.findViewById(R.id.txt_contacts_number);
@@ -169,6 +171,7 @@ public class MainActivity extends ActionBarActivity {
                 @Override
                 public void onClick(View arg0) {
                     Intent intent = new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI);
+                    intent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);//this asks for a single number 
                     startActivityForResult(intent, PICK_CONTACT);
                 }
             });
@@ -185,30 +188,18 @@ public class MainActivity extends ActionBarActivity {
                     if (resultCode == Activity.RESULT_OK) {
                         Uri uri = data.getData();
                         Cursor cursorID = getActivity().getContentResolver().query(uri,
-                                new String[]{ContactsContract.Contacts._ID},
+                                new String[]{ContactsContract.Contacts._ID, ContactsContract.Contacts.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER},
                                 null, null, null);
 
                         if (cursorID.moveToFirst()) {
 
                             contactID = cursorID.getString(cursorID.getColumnIndex(ContactsContract.Contacts._ID));
+                            String name = cursorID.getString(cursorID.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+                            String number = cursorID.getString(cursorID.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                            txtContacts1.setText(name + " : " + number);
                         }
                         cursorID.close();
                         Log.d(TAG, "Contact ID: " + contactID);
-                        // Using the contact ID now we will get contact phone number
-                        Cursor c = getActivity().getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                                new String[]{ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME, ContactsContract.CommonDataKinds.Phone.NUMBER},
-                                ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ? AND " +
-                                        ContactsContract.CommonDataKinds.Phone.TYPE + " = " +
-                                        ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE,
-                                new String[]{contactID},
-                                null);
-
-                        if (c.moveToFirst()) {
-                            String name = c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
-                            String number = c.getString(c.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
-                            txtContacts1.setText(name + " : " + number);
-                        }
-                        c.close();
                     }
                     break;
             }

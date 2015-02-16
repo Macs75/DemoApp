@@ -20,10 +20,8 @@
     android:id="@+id/floating_action_button_container"
     android:layout_width="@dimen/floating_action_button_width"
     android:layout_height="@dimen/floating_action_button_height"
-    android:layout_marginEnd="@dimen/floating_action_button_margin_right"
     android:layout_marginRight="@dimen/floating_action_button_margin_right"
     android:layout_marginBottom="@dimen/floating_action_button_margin_bottom"
-    android:layout_alignParentEnd="true"
     android:layout_alignParentRight="true"
     android:layout_alignParentBottom="true">
 
